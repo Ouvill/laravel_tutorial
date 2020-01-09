@@ -1,0 +1,11 @@
+version: "3"
+services:
+  pgadm:
+    image: dpage/pgadmin4
+    ports:
+      - "8001:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres
+      PGADMIN_DEFAULT_PASSWORD: secret
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin:z

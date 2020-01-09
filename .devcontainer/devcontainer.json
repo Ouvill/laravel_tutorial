@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/master/containers/php-7
 {
     "name": "PHP 7 & Nginx",
-    "dockerComposeFile": "../docker-compose.yml",
+    "dockerComposeFile": ["../docker-compose.yml", "./docker-compose.dev.yml"],
     "service": "php",
     "workspaceFolder": "/workspace",
     // Use 'settings' to set *default* container specific settings.json values on container create.
