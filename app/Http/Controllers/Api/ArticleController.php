@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use Validator;
 use App\Article;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateArticle;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -27,6 +29,14 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            "title" => "required",
+            "body" => "required"
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
         $article = new Article();
         $article->title = $request->title;
         $article->body = $request->body;
