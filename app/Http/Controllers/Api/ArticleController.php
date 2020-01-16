@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Article;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,17 +15,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $articles = Article::all();
+        return $articles;
     }
 
     /**
@@ -35,7 +27,11 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article();
+        $article->title = $request->title;
+        $article->body = $request->body;
+        $article->save();
+        return redirect("api/articles");
     }
 
     /**
@@ -46,18 +42,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $article = Article::find($id);
+        return $article;
     }
 
     /**
@@ -69,7 +55,11 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+        $article->title = $request->title;
+        $article->body = $request->body;
+        $article->save();
+        return redirect("api/articles/" . $id);
     }
 
     /**
@@ -80,6 +70,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+        $article->delete();
+        return redirect('api/articles');
     }
 }
